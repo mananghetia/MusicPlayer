@@ -1,121 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- for font awesome icons -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-   <div class="main_div" id="main">
-       <div class="music_player">
-           <ul>
-               <li>M</li>
-               <li>u</li>
-               <li>s</li>
-               <li>i</li>
-               <li>c</li>
-               <li></li>
-               <li>P</li>
-               <li>l</li>
-               <li>a</li>
-               <li>y</li>
-               <li>e</li>
-               <li>r</li>
-           </ul>
-       </div>
-       <div class="music_container">
-           <h2 id="title">Title</h2>
-           <h3 id="artist">Artist</h3>
-           <div class="img_container">
-               <img src="" alt=" ">
-           </div>
-           <audio src=""></audio>
-           <!-- controls -->
-           <div class="music_controls">
-            <i class="fas fa-backward" id="prev" title="Previous"></i>
-            <i class="fas fa-play main_button" id="play" title="Play"></i>
-            <i class="fas fa-forward" id="next" title="Next"></i>
+    <div class="main_div" id="main">
+        <div class="music_player">
+            <ul>
+                <li>M</li>
+                <li>u</li>
+                <li>s</li>
+                <li>i</li>
+                <li>c</li>
+                <li></li>
+                <li>P</li>
+                <li>l</li>
+                <li>a</li>
+                <li>y</li>
+                <li>e</li>
+                <li>r</li>
+            </ul>
+        </div>
+        <div class="music_container">
+            <h2 id="title">Title</h2>
+            <h3 id="artist">Artist</h3>
+            <div class="img_container">
+                <img src="" alt=" ">
+            </div>
+            <audio src=""></audio>
+            <!-- Progress Bar -->
+            <div class="progressbar_container" id="progressbar_container">
+                <div class="progress_duration_meter">
+                    <div id="current_time">0:00</div>
+                    <div id="duration">0:00</div>
+                </div>
+                <div class="progress_div" id="progress_div">
+                    <div class="progress" id="progress">
+
+                    </div>
+                </div>
+            </div>
+            <!-- controls -->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
             </div>
         </div>
     </div>
-<script>
-    const music = document.querySelector("audio");
-    const img = document.querySelector("img");
-    const play = document.getElementById("play");
-    const artist = document.getElementById("artist");
-    const title = document.getElementById("title");
-    const prev = document.getElementById("prev");
-    const next = document.getElementById("next");
-    
-    const songs = [
-        {
-            name: "song-1",
-            title: "The Night King",
-            artist: "Ramin Djawadi",
-        },
-        {
-            name: "song-2",
-            title: " My Life Is Going On",
-            artist: "Cecilia Krull",
-        },
-        {
-            name: "song-3",
-            title: "Sunset Lover",
-            artist: "Petit Biscuit",
-        },
-    ];
-    
-    songIndex = 0;
-    let isPlaying = false;
-    
-    
-        const playMusic = ()=>{
-           isPlaying = true;
-           music.play();
-           play.classList.replace("fa-play","fa-pause");
-           img.classList.add("anime");
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+        const progress = document.getElementById("progress");
+        const current_time = document.getElementById("current_time");
+        const tot_duration = document.getElementById("duration");
+        const progress_div = document.getElementById("progress_div");
+
+        const songs = [
+            {
+                name: "song-1",
+                title: "The Night King",
+                artist: "Ramin Djawadi",
+            },
+            {
+                name: "song-2",
+                title: " My Life Is Going On",
+                artist: "Cecilia Krull",
+            },
+            {
+                name: "song-3",
+                title: "Sunset Lover",
+                artist: "Petit Biscuit",
+            },
+        ];
+
+        songIndex = 0;
+        let isPlaying = false;
+
+        // Song controls
+        const playMusic = () => {
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
         };
-        
-        const pauseMusic = ()=>{
+
+        const pauseMusic = () => {
             isPlaying = false;
             music.pause();
-            play.classList.replace("fa-pause","fa-play");
+            play.classList.replace("fa-pause", "fa-play");
             img.classList.remove("anime");
         };
-        
-        play.addEventListener('click',()=>{
-            isPlaying ? pauseMusic() : playMusic() ;
+
+        play.addEventListener('click', () => {
+            isPlaying ? pauseMusic() : playMusic();
         });
-        
-        const loadSong = (songs) =>{
+
+        const loadSong = (songs) => {
             title.textContent = songs.title;
             artist.textContent = songs.artist;
             music.src = "music/" + songs.name + ".mp3";
             img.src = "images/" + songs.name + ".jpg";
-            document.getElementById("main").style.backgroundImage = "url(" + "'" + "background/" + songs.name + ".jpg" + "')";       
+            document.getElementById("main").style.backgroundImage = "url(" + "'" + "background/" + songs.name + ".jpg" + "')";
         };
-        
         loadSong(songs[songIndex]);
 
-        const nextSong = () =>{
+        const nextSong = () => {
             songIndex = (songIndex + 1) % songs.length;
             loadSong(songs[songIndex]);
             playMusic();
         }
-        
-        const prevSong = () =>{
+
+        const prevSong = () => {
             songIndex = (songIndex - 1 + songs.length) % songs.length;
             loadSong(songs[songIndex]);
             playMusic();
         }
 
-       music.addEventListener('ended',nextSong);
-       next.addEventListener("click",nextSong);
-       prev.addEventListener("click",prevSong);
-</script>
+        music.addEventListener('ended', nextSong);
+        next.addEventListener("click", nextSong);
+        prev.addEventListener("click", prevSong);
+        
+        // progress bar
+        music.addEventListener("timeupdate", (event) => {
+            const { currentTime, duration } = event.srcElement;
+            let progress_time = (currentTime / duration) * 100;
+            progress.style.width = `${progress_time}%`;
+            // music duration update
+            let min_duration = Math.floor(duration / 60);
+            let sec_duration = Math.floor(duration % 60);
+            if (sec_duration < 10)
+                sec_duration = `0${sec_duration}`;
+            if (duration)
+                tot_duration.textContent = `${min_duration}:${sec_duration}`;
+            //music current time update
+            min_duration = Math.floor(currentTime / 60);
+            sec_duration = Math.floor(currentTime % 60);
+            if (sec_duration < 10)
+                sec_duration = `0${sec_duration}`;
+            if (currentTime)
+                current_time.textContent = `${min_duration}:${sec_duration}`;
+        });
+        
+        //progress bar onclick functionallity
+        progress_div.addEventListener("click", (event) => {
+            let move_progress = ((event.offsetX) / (progress_div.clientWidth)) * music.duration;
+            music.currentTime = move_progress;
+        });
+        
+        //fullscreen request feature
+        function requestFullScreen(element) {
+            // Supports most browsers and their versions.
+            var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+            if (requestMethod) { // Native full screen.
+                requestMethod.call(element);
+            } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+                var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript !== null) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        }
+        var elem = document.body; // Make the body go full screen.
+        requestFullScreen(elem);
+    </script>
 </body>
+
 </html>

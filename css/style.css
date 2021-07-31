@@ -18,6 +18,7 @@ html{
     height: 100vh;
     text-overflow:inherit;
     padding: 0;
+    /* background-color: #f6f6f6; */
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -28,6 +29,7 @@ html{
 }
 
 .music_player{
+    /* background-color: yellow; */
     margin-top: auto;
     margin-bottom: auto;
     width: 40rem;
@@ -38,24 +40,6 @@ html{
     box-shadow: 0 1.2rem 3rem 0.5rem rgba(0,0,0,0.2);
 }
 
-.music_player ul{
-    display: flex;
-    justify-content: center;
-}
-
-.music_player ul li{
-    font-size: 6rem;
-    font-family: 'Bebas Neue', cursive;
-    list-style: none;
-    justify-content: center;
-    padding-left: 1rem;
-    animation: light 2s alternate  infinite ;
-}
-
-.music_player ul li:first-child{
-    padding-left: 0%;
-}
-
 .music_container{
     width: 40rem;
     height: 55rem;/*55*/
@@ -63,6 +47,7 @@ html{
     background-color: #ffffff;
     opacity: 0.85;
     border-radius: 2rem;
+    /* box-shadow: 0 1.2rem 3rem 0.5rem rgba(0,0,0,0.2); */
     padding: 3rem;
     word-wrap: break-word;
     text-align: center;
@@ -81,11 +66,14 @@ html{
 
 .music_container #artist{
     color: #cccaca;
+    text-transform: capitalize;
     letter-spacing: 0.1rem;
     font-size: 2rem;
     margin-bottom: 4rem;
     font-weight: 300;
 }
+
+/* image style */
 
 .img_container{
     width: 25rem;
@@ -101,13 +89,28 @@ img{
     box-shadow: 0 1.2rem 3rem 0.5rem rgba(0, 0, 0, 0.4);
 }
 
+.anime {
+    animation: rotatePlayer 6s linear infinite;
+}
+
+@keyframes rotatePlayer {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* music controls style */
+
 .music_controls{
     width: 20rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 1rem;
 }
 
 .music_controls .fas {
@@ -139,18 +142,26 @@ img{
     box-shadow: 0 1rem 2rem 0.2rem rgba(0, 0, 0, 0.4);
 }
 
-.anime {
-    animation: rotatePlayer 6s linear infinite;
+/* Music Player name Style */
+
+.music_player ul{
+    display: flex;
+    justify-content: center;
 }
 
-@keyframes rotatePlayer {
-    from{
-        transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
-    }
+.music_player ul li{
+    font-size: 6rem;
+    font-family: 'Bebas Neue', cursive;
+    list-style: none;
+    justify-content: center;
+    padding-left: 1rem;
+    animation: light 2s alternate  infinite ;
 }
+
+.music_player ul li:first-child{
+    padding-left: 0%;
+}
+
 @keyframes  light{
     0%{
         color:rgba(0,0,0,0.2);
@@ -196,6 +207,7 @@ img{
     animation-delay: 1.1s;
 }
 
+/* media query */
 @media only screen and (max-width: 768px) {
   html{
       font-size: 55%;
@@ -206,3 +218,47 @@ img{
         font-size: 50%;
     }
 } 
+
+/* Progress bar Style */
+.progressbar_container{
+    height: auto;
+    opacity: 0.85;
+    padding: 1rem 0;
+    margin-top: 1rem;
+}
+
+.progress_div{
+    width: 100%;
+    height: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0 ,0 ,0 , 0.07), 0 2px 4px rgba(0 ,0 ,0 , 0.07), 0 4px 8px rgba(0 ,0 ,0 , 0.07), 0 8px 16px rgba(0 ,0 ,0 , 0.07), 0 16px 32px rgba(0 ,0 ,0 , 0.07), 0 32px 64px rgba(0 ,0 ,0 , 0.07);
+    border-radius: 4rem;
+    position: relative;
+    margin-top: 0.5rem;
+    transition: all 1s linear;
+    -moz-transition: all 1s linear;
+    -o-transition: all 1s linear;
+    -webkit-transition: all 1s linear;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.progress{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: #171717;
+    border-radius: 4rem;
+    transition: width 0.1s linear;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.progress_duration_meter{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
